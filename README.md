@@ -1,2 +1,9 @@
 # Hobby-House
-Lab 8
+
+Навчальний проєкт: лендинг магазину товарів для хобі.
+
+## Технології
+HTML5, CSS3, JavaScript
+
+## Автор
+Orest Skalskyi
