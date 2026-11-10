@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Кошик — Хобі Хатка</title>
+  <meta name="description" content="Ваш демонстраційний кошик: склад замовлення, кількість і підсумок.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="pages.css">
+  <script src="assets/js/site.js" defer></script>
+</head>
+<body data-page="cart">
+
+  <!-- Набір піктограм (сумісні з Lucide), використовуються через <use> -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
+      <symbol id="i-user-round" viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></symbol>
+      <symbol id="i-shopping-bag" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></symbol>
+      <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 12h16"/><path d="M4 6h16"/><path d="M4 18h16"/></symbol>
+      <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
+      <symbol id="i-book-open" viewBox="0 0 24 24"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></symbol>
+      <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></symbol>
+      <symbol id="i-mail" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol>
+      <symbol id="i-map-pin" viewBox="0 0 24 24"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></symbol>
+      <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></symbol>
+      <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+      <symbol id="i-arrow-up-right" viewBox="0 0 24 24"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></symbol>
+      <symbol id="i-sliders-horizontal" viewBox="0 0 24 24"><path d="M21 4h-7"/><path d="M10 4H3"/><path d="M21 12h-9"/><path d="M8 12H3"/><path d="M21 20h-5"/><path d="M12 20H3"/><path d="M14 2v4"/><path d="M8 10v4"/><path d="M16 18v4"/></symbol>
+      <symbol id="i-scan-eye" viewBox="0 0 24 24"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><circle cx="12" cy="12" r="1"/><path d="M18.944 12.33a1 1 0 0 0 0-.66 7.5 7.5 0 0 0-13.888 0 1 1 0 0 0 0 .66 7.5 7.5 0 0 0 13.888 0"/></symbol>
+      <symbol id="i-package-check" viewBox="0 0 24 24"><path d="m16 16 2 2 4-4"/><path d="M21 10V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l2-1.14"/><path d="M16.5 9.4 7.55 4.24"/><path d="M3.29 7 12 12l8.71-5"/><path d="M12 22V12"/></symbol>
+      <symbol id="i-trash-2" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+      <symbol id="i-ruler" viewBox="0 0 24 24"><path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z"/><path d="m14.5 12.5 2-2"/><path d="m11.5 9.5 2-2"/><path d="m8.5 6.5 2-2"/><path d="m17.5 15.5 2-2"/></symbol>
+      <symbol id="i-house" viewBox="0 0 24 24"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></symbol>
+    </defs>
+  </svg>
+
+  <div class="visually-hidden" id="live-status" role="status" aria-live="polite"></div>
+
+  <a class="skip-link" href="#main">Перейти до основного вмісту</a>
+
+  <header class="site-header">
+    <div class="site-header__bar">
+
+      <a class="brand" href="index.html">
+        <img class="brand__logo" src="assets/img/logo.png" width="219" height="45" alt="Хобі Хатка — простір для творчості">
+      </a>
+
+      <nav class="main-nav" aria-label="Основна навігація">
+        <ul class="main-nav__list">
+          <li><a class="main-nav__link" href="index.html">Головна</a></li>
+          <li><a class="main-nav__link" href="catalog.html">Каталог</a></li>
+          <li><a class="main-nav__link" href="about.html">Про нас</a></li>
+          <li><a class="main-nav__link" href="contacts.html">Контакти</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <button class="action action--desktop" type="button" id="search-toggle-desktop" aria-controls="search-panel" aria-expanded="false">
+          <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-search"/></svg>
+          <span class="action__label">Пошук</span>
+        </button>
+        <a class="action action--desktop" href="account.html">
+          <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-user-round"/></svg>
+          <span class="action__label">Акаунт</span>
+        </a>
+        <a class="action action--desktop" href="catalog.html">
+          <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-book-open"/></svg>
+          <span class="action__label">Каталог</span>
+        </a>
+        <button class="icon-button icon-button--mobile" type="button" id="search-toggle" aria-label="Пошук" aria-controls="mobile-menu" aria-expanded="false">
+          <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-search"/></svg>
+        </button>
+        <a class="action" href="cart.html" data-cart-link aria-current="page">
+          <span class="action__icon">
+            <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-shopping-bag"/></svg>
+            <span class="cart-count" data-cart-count aria-hidden="true" hidden>0</span>
+          </span>
+          <span class="action__label">Кошик</span>
+        </a>
+        <button class="icon-button icon-button--mobile" type="button" id="menu-toggle" aria-label="Відкрити меню" aria-controls="mobile-menu" aria-expanded="false">
+          <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-menu"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <form class="search-panel" id="search-panel" role="search" action="catalog.html" method="get" hidden>
+      <div class="container">
+        <div class="search">
+          <label class="visually-hidden" for="search-desktop">Пошук матеріалів</label>
+          <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-search"/></svg>
+          <input id="search-desktop" class="search__input" type="search" name="q" placeholder="Знайти матеріали для ідеї…" autocomplete="off">
+          <button class="btn btn--primary" type="submit">Знайти</button>
+        </div>
+      </div>
+    </form>
+
+    <!-- Мобільне меню (за замовчуванням приховане) -->
+    <div class="mobile-menu" id="mobile-menu" hidden>
+      <div class="mobile-menu__head">
+        <p class="mobile-menu__title">Меню</p>
+        <button class="icon-button" type="button" id="menu-close" aria-label="Закрити меню">
+          <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-x"/></svg>
+        </button>
+      </div>
+
+      <form class="search" role="search" action="catalog.html" method="get">
+        <label class="visually-hidden" for="search-mobile">Пошук матеріалів</label>
+        <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-search"/></svg>
+        <input id="search-mobile" class="search__input" type="search" name="q" placeholder="Знайти матеріали для ідеї…" autocomplete="off">
+      </form>
+
+      <nav aria-label="Мобільна навігація">
+        <ul class="mobile-menu__list">
+          <li><a class="mobile-menu__link" href="index.html"><span>Головна</span><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-right"/></svg></a></li>
+          <li><a class="mobile-menu__link" href="catalog.html"><span>Каталог</span><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-right"/></svg></a></li>
+          <li><a class="mobile-menu__link" href="about.html"><span>Про нас</span><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-right"/></svg></a></li>
+          <li><a class="mobile-menu__link" href="contacts.html"><span>Контакти</span><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-right"/></svg></a></li>
+          <li><a class="mobile-menu__link" href="account.html"><span>Профіль</span><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-right"/></svg></a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="page">
+    <div class="container page__inner">
+
+      <header class="page-head">
+        <div class="page-nav"><a class="back-link" href="catalog.html" data-back><svg class="icon icon--sm" aria-hidden="true" focusable="false"><use href="#i-arrow-left"/></svg><span>Назад</span></a><a class="back-link" href="index.html"><svg class="icon icon--sm" aria-hidden="true" focusable="false"><use href="#i-house"/></svg><span>На головну</span></a></div>
+        <nav class="breadcrumbs" aria-label="Хлібні крихти"><ol><li><a href="index.html">Головна</a></li><li><span aria-current="page">Кошик</span></li></ol></nav>
+        <h1 class="page-head__title">Кошик ваших ідей</h1>
+        <p class="page-head__lead" id="cart-lead">Перевірте матеріали перед оформленням.</p>
+      </header>
+
+      <noscript><p class="notice-card">Для роботи кошика потрібен увімкнений JavaScript.</p></noscript>
+
+      <div class="notice-card" id="cart-empty" hidden>
+        <h2 class="notice-card__title" id="cart-empty-title" tabindex="-1">У кошику поки порожньо</h2>
+        <p>Додайте матеріали з каталогу — вони з’являться тут.</p>
+        <a class="btn btn--primary" href="catalog.html">Перейти до каталогу</a>
+      </div>
+
+      <div class="cart-layout" id="cart-layout" hidden>
+        <div class="cart-main">
+          <ul class="cart-list" id="cart-list"></ul>
+          <a class="btn btn--secondary" href="catalog.html">Продовжити покупки</a>
+          <p class="note">Кошик зберігається в цьому браузері. Ціни й наявність — демонстраційні.</p>
+        </div>
+
+        <div class="summary-col">
+          <section class="summary" aria-labelledby="summary-title">
+            <h2 class="summary__title" id="summary-title">Ваше замовлення</h2>
+            <div id="cart-summary-rows"></div>
+            <a class="btn btn--primary btn--block" href="checkout.html">Оформити замовлення</a>
+            <p class="summary__note">Демонстраційні товари й ціни. Доставка 80 ₴ — приклад розрахунку, не фактична обіцянка.</p>
+          </section>
+          <p class="note">Наступний крок — контакти, доставка й спосіб оплати. Підсумок буде видимим і там.</p>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="site-footer" id="footer">
+    <div class="container">
+      <div class="site-footer__cols">
+
+        <div class="site-footer__brand">
+          <a class="brand" href="index.html">
+        <img class="brand__logo" src="assets/img/logo.png" width="219" height="45" alt="Хобі Хатка — простір для творчості">
+      </a>
+          <p class="site-footer__about">Матеріали для великих ідей і маленьких деталей. Творіть у власному ритмі.</p>
+        </div>
+
+        <div class="site-footer__col">
+          <h2 class="site-footer__heading">Магазин</h2>
+          <nav aria-label="Навігація підвалу">
+            <ul class="site-footer__list">
+              <li><a href="catalog.html">Каталог</a><span aria-hidden="true"> · </span><a href="about.html">Про нас</a></li>
+              <li><a href="contacts.html#delivery">Доставка й оплата</a></li>
+              <li><a href="contacts.html">Контакти</a></li>
+            </ul>
+          </nav>
+        </div>
+
+        <div class="site-footer__col">
+          <h2 class="site-footer__heading">Напишіть нам</h2>
+          <address class="site-footer__address">
+            <a href="mailto:hello@hobihatka.example">hello@hobihatka.example</a>
+          </address>
+          <p class="site-footer__demo">Демонстраційний контакт. Умови доставки й наявність потребують підтвердження магазину.</p>
+        </div>
+
+      </div>
+
+      <hr class="site-footer__rule">
+      <p class="site-footer__legal">Хобі Хатка · Навчальний дизайн, лабораторна №4. Товари, ціни та замовлення — демонстраційні. Оплата не здійснюється.</p>
+    </div>
+  </footer>
+</body>
+</html>
