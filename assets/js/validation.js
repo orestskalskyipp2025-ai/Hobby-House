@@ -70,7 +70,7 @@
   /* ---------- UI-стани поля: normal · error · success (focus — через Tailwind) ---------- */
 
   var BASE = ['border-[var(--color-control-border)]'];
-  var ERROR = ['border-red-500', 'bg-red-50'];
+  var ERROR = ['border-red-500', 'bg-[var(--color-error-surface)]'];
   var SUCCESS = ['border-green-600'];
 
   function swap(control, remove, add) {

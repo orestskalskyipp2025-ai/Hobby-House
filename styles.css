@@ -17,6 +17,9 @@
   --color-success: #3f684c;
   --color-success-surface: #e8ede4;
   --color-focus: #496d9b;
+  --color-on-primary: #fffdfa;
+  --color-primary-hover: #62432d;
+  --shadow-color: rgba(48, 43, 37, 0.18);
 
   /* Відступи */
   --space-8: 8px;
@@ -55,6 +58,46 @@
   :root {
     --gutter: 80px;
   }
+}
+
+
+/* ---------- Темна тема ----------
+   Вмикається атрибутом data-theme="dark" на <html> (див. скрипт у <head>
+   та initTheme у site.js). Перевизначаються лише токени кольорів. */
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --color-primary: #d4a574;
+  --color-accent: #9bbd90;
+  --color-secondary: #302922;
+  --color-background: #181410;
+  --color-surface: #221d18;
+  --color-text: #f0e9df;
+  --color-muted: #bdb2a3;
+  --color-border: #41382e;
+  --color-control-border: #a59886;
+  --color-success: #9fd0ab;
+  --color-success-surface: #1f2d23;
+  --color-focus: #8db6ea;
+  --color-error: #f2958b;
+  --color-error-surface: #3b211e;
+  --color-on-primary: #24160b;
+  --color-primary-hover: #e3b98c;
+  --shadow-color: rgba(0, 0, 0, 0.55);
+}
+
+/* Фото трохи приглушуємо, щоб не «світили» на темному тлі */
+:root[data-theme="dark"] .product-card__photo,
+:root[data-theme="dark"] .category-card__photo {
+  filter: brightness(0.92);
+}
+
+/* Логотип намальований для світлого фону — кладемо його на світлу «плашку» */
+:root[data-theme="dark"] .brand__logo {
+  box-sizing: content-box;
+  padding: 4px 10px;
+  background: #efe6d6;
+  border-radius: var(--radius-control);
 }
 
 /* ---------- База ---------- */
@@ -194,7 +237,7 @@ a {
 
 .btn--primary {
   background: var(--color-primary);
-  color: var(--color-surface);
+  color: var(--color-on-primary);
 }
 
 .btn--secondary {
@@ -203,8 +246,8 @@ a {
 }
 
 .btn--primary:hover {
-  background: #62432d;
-  border-color: #62432d;
+  background: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
 }
 
 .btn--secondary:hover {
@@ -1112,3 +1155,74 @@ html { scroll-behavior: smooth; } @media (prefers-reduced-motion: reduce) { html
 
 .brand__logo { display: block; width: 219px; max-width: 100%; height: auto; }
 @media (max-width: 400px) { .brand__logo { width: 180px; } }
+
+/* ---------- Виділення карток на передній план ---------- */
+
+.category-card__photo {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.category-card--featured .category-card__photo {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+  box-shadow: 0 12px 24px var(--shadow-color);
+  transform: translateY(-6px);
+}
+
+.category-card--featured .category-card__name {
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.product-card {
+  position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.product-card--featured {
+  box-shadow: 0 0 0 2px var(--color-primary), 0 16px 32px var(--shadow-color);
+}
+
+.product-card__flag {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 1;
+  padding: 5px 12px;
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  border-radius: var(--radius-badge);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.benefit--featured,
+.quote--featured {
+  background: var(--color-surface);
+  box-shadow: 0 0 0 2px var(--color-primary), 0 16px 32px var(--shadow-color);
+}
+
+.benefit--featured {
+  padding: var(--space-24);
+  border-radius: var(--radius-card);
+}
+
+.testimonials .quote--featured {
+  background: var(--color-surface);
+}
+
+/* Підняття лише там, де картки стоять у кілька колонок */
+@media (min-width: 700px) {
+  .product-card--featured,
+  .benefit--featured,
+  .quote--featured {
+    transform: translateY(-8px);
+  }
+}
+
+@media (max-width: 899px) {
+  .quote--featured {
+    transform: none;
+  }
+}

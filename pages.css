@@ -800,6 +800,18 @@ select.field__control,
   --font-display: "Manrope", var(--font-sans);
 }
 
+:root[data-theme="dark"] .page-about {
+  --color-background: #181410;
+  --color-primary: #d4a574;
+  --color-text: #f0e9df;
+  --color-muted: #bdb2a3;
+  --color-secondary: #302922;
+  --color-border: #41382e;
+  --color-control-border: #a59886;
+  --about-wood: #c99b68;
+  --about-white: #221d18;
+}
+
 .page-about .site-header { border-bottom-color: var(--about-wood); }
 
 .about-eyebrow {

@@ -897,8 +897,54 @@
     render();
   }
 
+  /* ---------- Тема (світла / темна) ---------- */
+
+  var THEME_KEY = 'hh-theme';
+
+  function currentTheme() {
+    return document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+  }
+
+  /* Оновлює вигляд кнопки: підпис описує дію, яку виконає натискання */
+  function paintThemeButton(button) {
+    var dark = currentTheme() === 'dark';
+    var label = $('.action__label', button);
+    var use = $('use', button);
+    if (label) label.textContent = dark ? 'Світла тема' : 'Темна тема';
+    if (use) use.setAttribute('href', dark ? '#i-sun' : '#i-moon');
+  }
+
+  function initTheme() {
+    var button = $('#theme-toggle');
+    if (!button) return;
+    paintThemeButton(button);
+
+    button.addEventListener('click', function () {
+      var next = currentTheme() === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      try { window.localStorage.setItem(THEME_KEY, next); } catch (e) { /* без збереження */ }
+      paintThemeButton(button);
+      announce(next === 'dark' ? 'Увімкнено темну тему.' : 'Увімкнено світлу тему.');
+    });
+
+    /* Якщо користувач сам не обирав — стежимо за налаштуванням системи */
+    if (window.matchMedia) {
+      var query = window.matchMedia('(prefers-color-scheme: dark)');
+      var follow = function (event) {
+        var saved = null;
+        try { saved = window.localStorage.getItem(THEME_KEY); } catch (e) {}
+        if (saved) return;
+        document.documentElement.setAttribute('data-theme', event.matches ? 'dark' : 'light');
+        paintThemeButton(button);
+      };
+      if (query.addEventListener) query.addEventListener('change', follow);
+      else if (query.addListener) query.addListener(follow);
+    }
+  }
+
   /* ---------- Запуск ---------- */
 
+  initTheme();
   initMenu();
   initSearchPanel();
   initAddToCart();
