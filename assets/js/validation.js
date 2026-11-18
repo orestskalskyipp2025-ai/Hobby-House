@@ -223,7 +223,6 @@
 
       form.reset();                                 /* очищаємо поля до показу вікна */
       resetStates();
-      if (submitBtn) submitBtn.blur();
       openModal();
     });
   }
