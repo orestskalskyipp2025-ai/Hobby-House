@@ -92,14 +92,6 @@
   filter: brightness(0.92);
 }
 
-/* Логотип намальований для світлого фону — кладемо його на світлу «плашку» */
-:root[data-theme="dark"] .brand__logo {
-  box-sizing: content-box;
-  padding: 4px 10px;
-  background: #efe6d6;
-  border-radius: var(--radius-control);
-}
-
 /* ---------- База ---------- */
 
 *,
@@ -1153,76 +1145,205 @@ a {
 }
 html { scroll-behavior: smooth; } @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
-.brand__logo { display: block; width: 219px; max-width: 100%; height: auto; }
-@media (max-width: 400px) { .brand__logo { width: 180px; } }
 
-/* ---------- Виділення карток на передній план ---------- */
+/* ---------- Логотип (вектор + текст: бере кольори теми) ---------- */
 
-.category-card__photo {
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+.brand__icon {
+  flex: none;
+  width: 44px;
+  height: 40px;
+  fill: none;
+  stroke: var(--color-primary);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
-.category-card--featured .category-card__photo {
-  outline: 2px solid var(--color-primary);
-  outline-offset: 3px;
-  box-shadow: 0 12px 24px var(--shadow-color);
-  transform: translateY(-6px);
+.brand__words {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+  white-space: nowrap;
 }
 
-.category-card--featured .category-card__name {
-  font-weight: 700;
+.brand__name {
+  font-family: var(--font-serif);
+  font-size: 28px;
+  font-weight: 500;
   color: var(--color-primary);
+}
+
+.brand__tagline {
+  margin-top: 5px;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+@media (max-width: 400px) {
+  .brand__icon {
+    width: 36px;
+    height: 33px;
+  }
+
+  .brand__name {
+    font-size: 22px;
+  }
+
+  .brand__tagline {
+    font-size: 8.5px;
+    letter-spacing: 0.16em;
+  }
+}
+
+/* ---------- Перемикач теми (світла ⇄ темна) ---------- */
+
+.theme-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-12);
+  min-height: 44px;
+  padding: 0 4px;
+  border: 0;
+  background: transparent;
+  color: var(--color-text);
+  font: 500 15px/1.2 var(--font-sans);
+  cursor: pointer;
+}
+
+.theme-switch__track {
+  position: relative;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: space-between;
+  width: 58px;
+  height: 30px;
+  padding-inline: 6px;
+  border: 2px solid var(--color-control-border);
+  border-radius: var(--radius-badge);
+  background: var(--color-secondary);
+  color: var(--color-muted);
+  transition: background 0.2s ease;
+}
+
+.theme-switch__track .icon {
+  width: 14px;
+  height: 14px;
+}
+
+/* Бігунок затуляє поточну піктограму, а друга підказує, куди перемкне */
+.theme-switch__thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  transition: transform 0.2s ease;
+}
+
+.theme-switch[aria-checked="true"] .theme-switch__thumb {
+  transform: translateX(28px);
+}
+
+.theme-switch:hover .theme-switch__track {
+  border-color: var(--color-primary);
+}
+
+.theme-switch:focus-visible {
+  outline: none;
+}
+
+.theme-switch:focus-visible .theme-switch__track {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* У шапці — лише на широких екранах; на телефоні перемикач у мобільному меню */
+.theme-switch--header {
+  display: none;
+}
+
+.mobile-menu__theme {
+  padding-top: var(--space-24);
+  margin-top: var(--space-16);
+  border-top: 1px solid var(--color-border);
+}
+
+.theme-switch--row {
+  width: 100%;
+  justify-content: space-between;
+}
+
+@media (min-width: 1024px) {
+  .theme-switch--header {
+    display: inline-flex;
+  }
+}
+
+/* ---------- Виділення на передній план при наведенні ---------- */
+
+.category-card__photo,
+.product-card,
+.benefit,
+.quote {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 }
 
 .product-card {
   position: relative;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.product-card--featured {
-  box-shadow: 0 0 0 2px var(--color-primary), 0 16px 32px var(--shadow-color);
-}
-
-.product-card__flag {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  z-index: 1;
-  padding: 5px 12px;
-  background: var(--color-primary);
-  color: var(--color-on-primary);
-  border-radius: var(--radius-badge);
-  font-size: 12px;
-  font-weight: 600;
-  line-height: 1.25;
-}
-
-.benefit--featured,
-.quote--featured {
-  background: var(--color-surface);
-  box-shadow: 0 0 0 2px var(--color-primary), 0 16px 32px var(--shadow-color);
-}
-
-.benefit--featured {
+/* Переваги й відгуки отримують відступ заздалегідь, щоб наведення не зсувало вміст */
+.benefit {
   padding: var(--space-24);
   border-radius: var(--radius-card);
 }
 
-.testimonials .quote--featured {
-  background: var(--color-surface);
-}
-
-/* Підняття лише там, де картки стоять у кілька колонок */
-@media (min-width: 700px) {
-  .product-card--featured,
-  .benefit--featured,
-  .quote--featured {
+/* Наведення мишею (лише там, де воно є) і фокус з клавіатури */
+@media (hover: hover) {
+  .product-card:hover,
+  .benefit:hover,
+  .quote:hover {
+    z-index: 1;
     transform: translateY(-8px);
+    box-shadow: 0 0 0 2px var(--color-primary), 0 16px 32px var(--shadow-color);
+  }
+
+  .benefit:hover {
+    background: var(--color-surface);
+  }
+
+  .quote:hover {
+    background: var(--color-background);
+  }
+
+  .category-card:hover .category-card__photo {
+    transform: translateY(-6px);
+    box-shadow: 0 0 0 2px var(--color-primary), 0 12px 24px var(--shadow-color);
+  }
+
+  .category-card:hover .category-card__name {
+    color: var(--color-primary);
+    font-weight: 700;
   }
 }
 
-@media (max-width: 899px) {
-  .quote--featured {
-    transform: none;
-  }
+.product-card:focus-within {
+  z-index: 1;
+  transform: translateY(-8px);
+  box-shadow: 0 0 0 2px var(--color-primary), 0 16px 32px var(--shadow-color);
+}
+
+.category-card:focus-visible .category-card__photo {
+  transform: translateY(-6px);
+  box-shadow: 0 0 0 2px var(--color-primary), 0 12px 24px var(--shadow-color);
+}
+
+.category-card:focus-visible .category-card__name {
+  color: var(--color-primary);
+  font-weight: 700;
 }

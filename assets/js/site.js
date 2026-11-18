@@ -905,26 +905,33 @@
     return document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
   }
 
-  /* Оновлює вигляд кнопки: підпис описує дію, яку виконає натискання */
-  function paintThemeButton(button) {
+  /* Усі перемикачі (у шапці й у мобільному меню) показують один і той самий стан */
+  function paintThemeSwitches() {
     var dark = currentTheme() === 'dark';
-    var label = $('.action__label', button);
-    var use = $('use', button);
-    if (label) label.textContent = dark ? 'Світла тема' : 'Темна тема';
-    if (use) use.setAttribute('href', dark ? '#i-sun' : '#i-moon');
+    $all('.theme-switch').forEach(function (el) {
+      el.setAttribute('aria-checked', dark ? 'true' : 'false');
+    });
+  }
+
+  function applyTheme(theme, save) {
+    document.documentElement.setAttribute('data-theme', theme);
+    if (save) {
+      try { window.localStorage.setItem(THEME_KEY, theme); } catch (e) { /* без збереження */ }
+    }
+    paintThemeSwitches();
   }
 
   function initTheme() {
-    var button = $('#theme-toggle');
-    if (!button) return;
-    paintThemeButton(button);
+    var switches = $all('.theme-switch');
+    if (!switches.length) return;
+    paintThemeSwitches();
 
-    button.addEventListener('click', function () {
-      var next = currentTheme() === 'dark' ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-theme', next);
-      try { window.localStorage.setItem(THEME_KEY, next); } catch (e) { /* без збереження */ }
-      paintThemeButton(button);
-      announce(next === 'dark' ? 'Увімкнено темну тему.' : 'Увімкнено світлу тему.');
+    switches.forEach(function (el) {
+      el.addEventListener('click', function () {
+        var next = currentTheme() === 'dark' ? 'light' : 'dark';
+        applyTheme(next, true);
+        announce(next === 'dark' ? 'Увімкнено темну тему.' : 'Увімкнено світлу тему.');
+      });
     });
 
     /* Якщо користувач сам не обирав — стежимо за налаштуванням системи */
@@ -933,9 +940,7 @@
       var follow = function (event) {
         var saved = null;
         try { saved = window.localStorage.getItem(THEME_KEY); } catch (e) {}
-        if (saved) return;
-        document.documentElement.setAttribute('data-theme', event.matches ? 'dark' : 'light');
-        paintThemeButton(button);
+        if (!saved) applyTheme(event.matches ? 'dark' : 'light', false);
       };
       if (query.addEventListener) query.addEventListener('change', follow);
       else if (query.addListener) query.addListener(follow);
