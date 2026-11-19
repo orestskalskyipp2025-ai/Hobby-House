@@ -1347,3 +1347,233 @@ html { scroll-behavior: smooth; } @media (prefers-reduced-motion: reduce) { html
   color: var(--color-primary);
   font-weight: 700;
 }
+
+/* ---------- Typed.js у Hero ---------- */
+
+.hero__typed {
+  min-height: 2.9em;
+  max-width: 440px;
+  font-size: 18px;
+  line-height: 1.45;
+  color: #f6e6cf;
+}
+
+.hero__typed-text {
+  font-weight: 600;
+  color: #fff;
+}
+
+.hero__typed .typed-cursor {
+  color: #f6e6cf;
+}
+
+@media (min-width: 600px) {
+  .hero__typed {
+    max-width: none;
+    min-height: 1.5em;
+  }
+}
+
+/* ---------- Swiper: слайдер відгуків ---------- */
+
+.reviews-swiper {
+  --swiper-theme-color: var(--color-primary);
+  --swiper-pagination-color: var(--color-primary);
+  --swiper-pagination-bullet-inactive-color: var(--color-control-border);
+  --swiper-pagination-bullet-inactive-opacity: 0.6;
+  --swiper-pagination-bullet-size: 10px;
+  --swiper-pagination-bullet-horizontal-gap: 5px;
+  /* запас під підняття картки при наведенні та під кнопки внизу */
+  padding: 16px 10px 72px;
+  margin-inline: -10px;
+}
+
+.reviews-swiper .swiper-slide {
+  display: flex;
+  height: auto;
+}
+
+.reviews-swiper .quote {
+  flex: 1;
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
+}
+
+.reviews-swiper .swiper-pagination {
+  bottom: 28px;
+}
+
+.reviews-swiper__btn {
+  position: absolute;
+  bottom: 12px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 2px solid var(--color-control-border);
+  border-radius: 50%;
+  background: var(--color-surface);
+  color: var(--color-primary);
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.reviews-swiper__btn:hover {
+  border-color: var(--color-primary);
+}
+
+.reviews-swiper__btn:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.reviews-swiper__btn--prev {
+  left: calc(50% - 130px);
+}
+
+.reviews-swiper__btn--next {
+  right: calc(50% - 130px);
+}
+
+.reviews-swiper__btn.swiper-button-disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+/* Запасний вигляд, якщо Swiper не завантажився: звичайна сітка карток без кнопок */
+.reviews-swiper:not(.is-ready) {
+  padding-bottom: 16px;
+}
+
+.reviews-swiper:not(.is-ready) .swiper-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--space-24);
+}
+
+.reviews-swiper:not(.is-ready) .swiper-pagination,
+.reviews-swiper:not(.is-ready) .reviews-swiper__btn {
+  display: none;
+}
+
+/* ---------- Fancybox: галерея ---------- */
+
+.gallery .container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-24);
+}
+
+.gallery__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-24);
+}
+
+/* 5 фото без «дірок» у сітці: останні (великі) займають більше місця */
+@media (min-width: 560px) {
+  .gallery__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .gallery__grid > li:last-child {
+    grid-column: span 2;
+  }
+
+  .gallery__grid > li:last-child img {
+    aspect-ratio: 16 / 9;
+  }
+}
+
+@media (min-width: 900px) {
+  .gallery__grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  .gallery__grid > li {
+    grid-column: span 2;
+  }
+
+  .gallery__grid > li:nth-child(n + 4) {
+    grid-column: span 3;
+  }
+
+  .gallery__grid > li:nth-child(n + 4) img {
+    aspect-ratio: 16 / 9;
+  }
+}
+
+.gallery__item {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border-radius: var(--radius-card);
+  background: var(--color-secondary);
+  cursor: zoom-in;
+}
+
+.gallery__grid > li {
+  display: flex;
+}
+
+.gallery__item {
+  flex: 1;
+}
+
+.gallery__item img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  transition: transform 0.35s ease;
+}
+
+.gallery__zoom {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  padding: 6px 14px;
+  border-radius: var(--radius-badge);
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  font-size: 13px;
+  font-weight: 600;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.gallery__item:hover img,
+.gallery__item:focus-visible img {
+  transform: scale(1.05);
+}
+
+.gallery__item:hover .gallery__zoom,
+.gallery__item:focus-visible .gallery__zoom {
+  opacity: 1;
+  transform: none;
+}
+
+.gallery__item:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+/* На сенсорних екранах підказка «Збільшити» видна завжди */
+@media (hover: none) {
+  .gallery__zoom {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gallery__item img,
+  .gallery__zoom {
+    transition: none;
+  }
+}

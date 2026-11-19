@@ -21,6 +21,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
+  <!-- CSS сторонніх бібліотек (CDN) — у <head>, перед власними стилями -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="pages.css">
   <script src="assets/js/site.js" defer></script>
@@ -176,6 +180,10 @@
         <div class="hero__text">
           <h1 class="hero__title" id="hero-title">Все для вашої творчості та хобі</h1>
           <p class="hero__lead">Широкий асортимент товарів для художників, рукоділля та декору</p>
+          <p class="hero__typed">
+            <span class="visually-hidden">У нашому каталозі: фарби, пензлі, бісер, нитки та декор для діорам.</span>
+            <span class="hero__typed-label" aria-hidden="true">У каталозі: </span><span class="hero__typed-text" id="typed-text" aria-hidden="true">Фарби для ваших ідей.</span>
+          </p>
           <a class="btn btn--pill" href="catalog.html">Каталог товарів</a>
         </div>
       </div>
@@ -184,9 +192,9 @@
     <!-- Категорії -->
     <section class="section section--surface categories" aria-labelledby="categories-title">
       <div class="container">
-        <h2 class="section__title" id="categories-title">Що ви хочете створити?</h2>
+        <h2 class="section__title" id="categories-title" data-aos="fade-up">Що ви хочете створити?</h2>
         <ul class="categories__list">
-          <li>
+          <li data-aos="fade-up" data-aos-delay="0">
             <a class="category-card" href="catalog.html?category=decor">
               <img class="category-card__photo" src="assets/img/cat-diorama.png" alt="" width="169" height="144" loading="lazy">
               <span class="category-card__label">
@@ -195,7 +203,7 @@
               </span>
             </a>
           </li>
-          <li>
+          <li data-aos="fade-up" data-aos-delay="80">
             <a class="category-card" href="catalog.html?category=paints">
               <img class="category-card__photo" src="assets/img/cat-paints.png" alt="" width="169" height="144" loading="lazy">
               <span class="category-card__label">
@@ -204,7 +212,7 @@
               </span>
             </a>
           </li>
-          <li>
+          <li data-aos="fade-up" data-aos-delay="160">
             <a class="category-card" href="catalog.html?category=brushes">
               <img class="category-card__photo" src="assets/img/cat-brushes.png" alt="" width="169" height="144" loading="lazy">
               <span class="category-card__label">
@@ -213,7 +221,7 @@
               </span>
             </a>
           </li>
-          <li>
+          <li data-aos="fade-up" data-aos-delay="240">
             <a class="category-card" href="catalog.html?category=easels">
               <img class="category-card__photo" src="assets/img/cat-easels.png" alt="" width="169" height="144" loading="lazy">
               <span class="category-card__label">
@@ -222,7 +230,7 @@
               </span>
             </a>
           </li>
-          <li>
+          <li data-aos="fade-up" data-aos-delay="320">
             <a class="category-card" href="catalog.html?category=beads">
               <img class="category-card__photo" src="assets/img/cat-beads.png" alt="" width="169" height="144" loading="lazy">
               <span class="category-card__label">
@@ -231,7 +239,7 @@
               </span>
             </a>
           </li>
-          <li>
+          <li data-aos="fade-up" data-aos-delay="400">
             <a class="category-card" href="catalog.html?category=threads">
               <img class="category-card__photo" src="assets/img/cat-threads.png" alt="" width="169" height="144" loading="lazy">
               <span class="category-card__label">
@@ -240,7 +248,7 @@
               </span>
             </a>
           </li>
-          <li>
+          <li data-aos="fade-up" data-aos-delay="480">
             <a class="category-card" href="catalog.html?category=other">
               <img class="category-card__photo" src="assets/img/cat-other.png" alt="" width="169" height="144" loading="lazy">
               <span class="category-card__label">
@@ -257,7 +265,7 @@
     <section class="section section--lg featured" aria-labelledby="featured-title">
       <div class="container">
         <div class="featured__head">
-          <h2 class="section__title" id="featured-title">Маленькі початки великих ідей</h2>
+          <h2 class="section__title" id="featured-title" data-aos="fade-up">Маленькі початки великих ідей</h2>
           <a class="btn btn--secondary featured__all" href="catalog.html">Перейти до каталогу</a>
         </div>
         <p class="note">Добірка для натхнення. Усі товари та ціни — демонстраційні.</p>
@@ -359,37 +367,102 @@
       </div>
     </section>
 
+    <!-- Галерея матеріалів (Fancybox v5) -->
+    <section class="section section--lg gallery" aria-labelledby="gallery-title">
+      <div class="container">
+        <h2 class="section__title" id="gallery-title" data-aos="fade-up">Галерея матеріалів</h2>
+        <p class="note">Натисніть на фото, щоб відкрити його у великому вікні. Усі зображення — демонстраційні.</p>
+        <ul class="gallery__grid">
+          <li data-aos="fade-up" data-aos-delay="0">
+            <a class="gallery__item" href="assets/img/product-brushes.png" data-fancybox="materials" data-caption="Пензлі · демонстраційне фото">
+              <img src="assets/img/product-brushes.png" alt="Пензлі для дрібних деталей" width="398" height="209" loading="lazy">
+              <span class="gallery__zoom" aria-hidden="true">Збільшити</span>
+            </a>
+          </li>
+          <li data-aos="fade-up" data-aos-delay="80">
+            <a class="gallery__item" href="assets/img/product-beads.png" data-fancybox="materials" data-caption="Бісер · демонстраційне фото">
+              <img src="assets/img/product-beads.png" alt="Бісер для рукоділля" width="398" height="209" loading="lazy">
+              <span class="gallery__zoom" aria-hidden="true">Збільшити</span>
+            </a>
+          </li>
+          <li data-aos="fade-up" data-aos-delay="160">
+            <a class="gallery__item" href="assets/img/product-moss.png" data-fancybox="materials" data-caption="Декор для діорам · демонстраційне фото">
+              <img src="assets/img/product-moss.png" alt="Мох та декор для діорам" width="398" height="209" loading="lazy">
+              <span class="gallery__zoom" aria-hidden="true">Збільшити</span>
+            </a>
+          </li>
+          <li data-aos="fade-up" data-aos-delay="0">
+            <a class="gallery__item" href="assets/img/product-paints.png" data-fancybox="materials" data-caption="Фарби · демонстраційне фото">
+              <img src="assets/img/product-paints.png" alt="Набір акрилових фарб у дерев’яній коробці" width="584" height="492" loading="lazy">
+              <span class="gallery__zoom" aria-hidden="true">Збільшити</span>
+            </a>
+          </li>
+          <li data-aos="fade-up" data-aos-delay="80">
+            <a class="gallery__item" href="assets/img/about-hero.png" data-fancybox="materials" data-caption="Майстерня · демонстраційне фото">
+              <img src="assets/img/about-hero.png" alt="Майстерня Хобі Хатки" width="666" height="376" loading="lazy">
+              <span class="gallery__zoom" aria-hidden="true">Збільшити</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
     <!-- Демонстраційні відгуки -->
     <section class="section section--surface section--lg testimonials" aria-labelledby="testimonials-title">
       <div class="container">
-        <h2 class="section__title" id="testimonials-title">Історії, з яких росте натхнення</h2>
+        <h2 class="section__title" id="testimonials-title" data-aos="fade-up">Історії, з яких росте натхнення</h2>
         <p class="note">Приклади відгуків — демонстраційні дані</p>
-        <ul class="testimonials__list">
-          <li>
-            <figure class="quote">
-              <blockquote class="quote__text">
-                <p>«Хочу бачити об’єм фарб і палітру ще до додавання в кошик. Тут усі деталі поруч із фото».</p>
-              </blockquote>
-              <figcaption class="quote__caption">Для малювання · умовний сценарій, не перевірений відгук</figcaption>
-            </figure>
-          </li>
-          <li>
-            <figure class="quote">
-              <blockquote class="quote__text">
-                <p>«Коли категорії зрозумілі, простіше підібрати фактури для маленького лісу в діорамі».</p>
-              </blockquote>
-              <figcaption class="quote__caption">Для мініатюр · умовний сценарій, не перевірений відгук</figcaption>
-            </figure>
-          </li>
-          <li>
-            <figure class="quote">
-              <blockquote class="quote__text">
-                <p>«Зручно, коли можна перевірити кількість, доставку та повну суму перед замовленням».</p>
-              </blockquote>
-              <figcaption class="quote__caption">Для рукоділля · умовний сценарій, не перевірений відгук</figcaption>
-            </figure>
-          </li>
-        </ul>
+        <div class="swiper reviews-swiper" role="region" aria-roledescription="карусель" aria-label="Відгуки клієнтів">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <figure class="quote">
+                <blockquote class="quote__text">
+                  <p>«Хочу бачити об’єм фарб і палітру ще до додавання в кошик. Тут усі деталі поруч із фото.»</p>
+                </blockquote>
+                <figcaption class="quote__caption">Для малювання · умовний сценарій, не перевірений відгук</figcaption>
+              </figure>
+            </div>
+            <div class="swiper-slide">
+              <figure class="quote">
+                <blockquote class="quote__text">
+                  <p>«Коли категорії зрозумілі, простіше підібрати фактури для маленького лісу в діорамі.»</p>
+                </blockquote>
+                <figcaption class="quote__caption">Для мініатюр · умовний сценарій, не перевірений відгук</figcaption>
+              </figure>
+            </div>
+            <div class="swiper-slide">
+              <figure class="quote">
+                <blockquote class="quote__text">
+                  <p>«Зручно, коли можна перевірити кількість, доставку та повну суму перед замовленням.»</p>
+                </blockquote>
+                <figcaption class="quote__caption">Для рукоділля · умовний сценарій, не перевірений відгук</figcaption>
+              </figure>
+            </div>
+            <div class="swiper-slide">
+              <figure class="quote">
+                <blockquote class="quote__text">
+                  <p>«Нитки й бісер в одному місці — менше вкладок і більше часу на сам виріб.»</p>
+                </blockquote>
+                <figcaption class="quote__caption">Для вишивки та бісероплетіння · умовний сценарій, не перевірений відгук</figcaption>
+              </figure>
+            </div>
+            <div class="swiper-slide">
+              <figure class="quote">
+                <blockquote class="quote__text">
+                  <p>«Пензлі для дрібних деталей зручно порівнювати за розміром, ще не відкриваючи кошик.»</p>
+                </blockquote>
+                <figcaption class="quote__caption">Для акварелі та мініатюр · умовний сценарій, не перевірений відгук</figcaption>
+              </figure>
+            </div>
+          </div>
+          <div class="swiper-pagination"></div>
+          <button class="reviews-swiper__btn reviews-swiper__btn--prev" type="button" aria-label="Попередній відгук">
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="m15 5-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <button class="reviews-swiper__btn reviews-swiper__btn--next" type="button" aria-label="Наступний відгук">
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
       </div>
     </section>
 
@@ -450,5 +523,12 @@
       <p class="site-footer__legal">Хобі Хатка · Навчальний дизайн, лабораторна №8. Товари, ціни та замовлення — демонстраційні. Оплата не здійснюється.</p>
     </div>
   </footer>
+
+  <!-- JS сторонніх бібліотек (CDN) — наприкінці <body>, потім власна ініціалізація -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script src="assets/js/plugins.js"></script>
 </body>
 </html>
