@@ -452,6 +452,78 @@
         </section>
 
       </div>
+
+      <section class="builder" aria-labelledby="builder-title">
+        <h2 class="section__title" id="builder-title">Калькулятор замовлення</h2>
+        <p class="note">Оберіть товар із каталогу, кількість і пакування — вартість оновлюється одразу. Ціни демонстраційні.</p>
+
+        <form class="widget" id="order-calc" data-widget="order-calculator" novalidate>
+          <div class="widget__fields">
+
+            <div class="field">
+              <label class="field__label" for="calc-product">Товар</label>
+              <select class="field__control" id="calc-product" name="product" aria-describedby="error-product">
+                <optgroup label="Фарби">
+                  <option value="acrylic-12" data-price="420">Набір акрилових фарб, 12 кольорів — 420 ₴</option>
+                </optgroup>
+                <optgroup label="Пензлі">
+                  <option value="brushes-5" data-price="185">Пензлі для деталей, 5 шт. — 185 ₴</option>
+                </optgroup>
+                <optgroup label="Декор для діорам">
+                  <option value="moss-forest" data-price="145">Декор для діорам — лісовий мох — 145 ₴</option>
+                </optgroup>
+                <optgroup label="Бісер">
+                  <option value="beads-50" data-price="85">Бісер скляний, 50 г — 85 ₴</option>
+                </optgroup>
+                <optgroup label="Камені">
+                  <option value="tiger-eye" data-price="220">Тигрове око — 220 ₴</option>
+                  <option value="hawk-eye" data-price="240">Соколине око — 240 ₴</option>
+                  <option value="bull-eye" data-price="260">Бичаче око — 260 ₴</option>
+                  <option value="pietersite" data-price="480">Петерсит — 480 ₴</option>
+                  <option value="cats-eye" data-price="390">Котяче око — 390 ₴</option>
+                  <option value="labradorite" data-price="320">Лабрадорит — 320 ₴</option>
+                  <option value="sunstone" data-price="350">Сонячний камінь — 350 ₴</option>
+                  <option value="malachite" data-price="290" selected>Малахіт — 290 ₴</option>
+                </optgroup>
+              </select>
+              <p class="field__error" id="error-product" role="alert" hidden></p>
+            </div>
+
+            <div class="field">
+              <label class="field__label" for="calc-qty">Кількість, шт. (1–20)</label>
+              <input class="field__control" id="calc-qty" name="qty" type="number" inputmode="numeric"
+                     min="1" max="20" step="1" value="1" required aria-describedby="error-qty qty-hint">
+              <p class="widget__hint" id="qty-hint">Від 5 шт. діє знижка 10%.</p>
+              <p class="field__error" id="error-qty" role="alert" hidden></p>
+            </div>
+
+            <div class="field">
+              <label class="field__label" for="calc-pack">Пакування</label>
+              <select class="field__control" id="calc-pack" name="pack" aria-describedby="error-pack">
+                <option value="standard" data-price="0" selected>Стандартне — 0 ₴</option>
+                <option value="reinforced" data-price="15">Посилене — +15 ₴ за шт.</option>
+                <option value="gift-box" data-price="40">Подарункова коробка — +40 ₴ за шт.</option>
+              </select>
+              <p class="field__error" id="error-pack" role="alert" hidden></p>
+            </div>
+
+            <fieldset class="widget__options">
+              <legend class="field__label">Додатково</legend>
+              <label class="choice"><input type="checkbox" id="calc-card" name="card"><span>Листівка з побажанням — +20 ₴</span></label>
+              <label class="choice"><input type="checkbox" id="calc-delivery" name="delivery"><span>Доставка до відділення — +80 ₴</span></label>
+            </fieldset>
+
+          </div>
+
+          <div class="widget__result" aria-live="polite" aria-atomic="true">
+            <p class="widget__result-label">Орієнтовна вартість</p>
+            <p class="widget__total"><output id="calc-total" for="calc-product calc-qty calc-pack calc-card calc-delivery">290 ₴</output></p>
+            <p class="widget__breakdown" id="calc-breakdown">1 × 290 ₴</p>
+            <p class="widget__note" id="calc-note" hidden></p>
+          </div>
+        </form>
+      </section>
+
     </div>
   </main>
 
@@ -499,5 +571,6 @@
       <p class="site-footer__legal">Хобі Хатка · Навчальний дизайн, лабораторна №4. Товари, ціни та замовлення — демонстраційні. Оплата не здійснюється.</p>
     </div>
   </footer>
+  <script src="assets/js/widget.js"></script>
 </body>
 </html>

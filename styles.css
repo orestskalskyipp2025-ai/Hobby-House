@@ -1626,3 +1626,4 @@ html { scroll-behavior: smooth; } @media (prefers-reduced-motion: reduce) { html
   .header-actions { gap: 4px; }
   .icon-button--mobile, .header-actions .action { min-width: 40px; width: 40px; }
 }
+.builder { margin-top: 48px; }

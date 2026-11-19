@@ -1,6 +1,6 @@
-/* Віджет «Конструктор набору каменів» (ЛР №11).
+/* Віджет «Калькулятор замовлення» (каталог) (ЛР №11).
    Чистий Vanilla JS. Код ізольований в IIFE: у глобальній області нічого не з’являється.
-   Віджет не залежить від id: усі елементи шукаються всередині кореня [data-widget="stone-builder"],
+   Віджет не залежить від id: усі елементи шукаються всередині кореня [data-widget="order-calculator"],
    тому на сторінці можна розмістити кілька екземплярів.
 
    Захист (Defensive Programming):
@@ -15,7 +15,7 @@
   var QTY_MAX = 20;
   var DISCOUNT_FROM = 5;     /* від цієї кількості діє знижка */
   var DISCOUNT = 0.1;        /* 10% */
-  var GIFT_PRICE = 50;
+  var CARD_PRICE = 20;
   var DELIVERY_PRICE = 80;
   var EMPTY = '—';
 
@@ -57,19 +57,19 @@
   function init(root) {
     var form = root;
     var qtyEl = form.querySelector('[name="qty"]');
-    var stoneEl = form.querySelector('[name="stone"]');
-    var mountEl = form.querySelector('[name="mount"]');
-    var giftEl = form.querySelector('[name="gift"]');
+    var productEl = form.querySelector('[name="product"]');
+    var packEl = form.querySelector('[name="pack"]');
+    var cardEl = form.querySelector('[name="card"]');
     var deliveryEl = form.querySelector('[name="delivery"]');
     var totalEl = form.querySelector('output');
     var breakdownEl = form.querySelector('.widget__breakdown');
     var noteEl = form.querySelector('.widget__note');
 
     /* Якщо потрібного елемента немає — тихо виходимо, сторінка не ламається */
-    if (!qtyEl || !stoneEl || !mountEl || !giftEl || !deliveryEl || !totalEl || !breakdownEl || !noteEl) return;
+    if (!qtyEl || !productEl || !packEl || !cardEl || !deliveryEl || !totalEl || !breakdownEl || !noteEl) return;
 
-    var stoneAllowed = Array.prototype.map.call(stoneEl.options, function (o) { return o.value; });
-    var mountAllowed = Array.prototype.map.call(mountEl.options, function (o) { return o.value; });
+    var productAllowed = Array.prototype.map.call(productEl.options, function (o) { return o.value; });
+    var packAllowed = Array.prototype.map.call(packEl.options, function (o) { return o.value; });
 
     function errorBox(el) {
       var id = el.getAttribute('aria-describedby') || '';
@@ -102,26 +102,26 @@
 
     function recalc() {
       var qty = readQty(qtyEl);
-      var stonePrice = optionPrice(stoneEl, stoneAllowed);
-      var mountPrice = optionPrice(mountEl, mountAllowed);
+      var productPrice = optionPrice(productEl, productAllowed);
+      var packPrice = optionPrice(packEl, packAllowed);
 
       setError(qtyEl, qty.error || '');
-      setError(stoneEl, stonePrice === null ? 'Оберіть камінь зі списку.' : '');
-      setError(mountEl, mountPrice === null ? 'Оберіть оформлення зі списку.' : '');
+      setError(productEl, productPrice === null ? 'Оберіть товар зі списку.' : '');
+      setError(packEl, packPrice === null ? 'Оберіть пакування зі списку.' : '');
 
-      if (qty.error || stonePrice === null || mountPrice === null) {
+      if (qty.error || productPrice === null || packPrice === null) {
         showInvalid();
         return;
       }
 
-      var unit = stonePrice + mountPrice;
+      var unit = productPrice + packPrice;
       var sum = unit * qty.value;
       var parts = [qty.value + ' × ' + money(unit)];
       if (qty.value >= DISCOUNT_FROM) {
         sum = sum * (1 - DISCOUNT);
         parts.push('знижка 10%');
       }
-      if (giftEl.checked) { sum += GIFT_PRICE; parts.push('упаковка +' + money(GIFT_PRICE)); }
+      if (cardEl.checked) { sum += CARD_PRICE; parts.push('листівка +' + money(CARD_PRICE)); }
       if (deliveryEl.checked) { sum += DELIVERY_PRICE; parts.push('доставка +' + money(DELIVERY_PRICE)); }
 
       /* Останній рубіж: підсумок має бути скінченним і додатним */
@@ -151,7 +151,7 @@
   }
 
   function start() {
-    var roots = document.querySelectorAll('[data-widget="stone-builder"]');
+    var roots = document.querySelectorAll('[data-widget="order-calculator"]');
     for (var i = 0; i < roots.length; i++) init(roots[i]);
   }
 

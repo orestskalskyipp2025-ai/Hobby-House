@@ -407,66 +407,6 @@
       </div>
     </section>
 
-    <!-- Інтерактивний віджет: конструктор набору каменів (ЛР №11) -->
-    <section class="section section--lg builder" aria-labelledby="builder-title">
-      <div class="container">
-        <h2 class="section__title" id="builder-title">Конструктор набору каменів</h2>
-        <p class="note">Підберіть камінь, кількість і оформлення — вартість оновлюється одразу. Ціни демонстраційні.</p>
-
-        <form class="widget" id="stone-widget" data-widget="stone-builder" novalidate>
-          <div class="widget__fields">
-
-            <div class="field">
-              <label class="field__label" for="stone-type">Камінь</label>
-              <select class="field__control" id="stone-type" name="stone" aria-describedby="error-stone">
-                <option value="tiger-eye" data-price="220">Тигрове око — 220 ₴</option>
-                <option value="hawk-eye" data-price="240">Соколине око — 240 ₴</option>
-                <option value="bull-eye" data-price="260">Бичаче око — 260 ₴</option>
-                <option value="pietersite" data-price="480">Петерсит — 480 ₴</option>
-                <option value="cats-eye" data-price="390">Котяче око — 390 ₴</option>
-                <option value="labradorite" data-price="320">Лабрадорит — 320 ₴</option>
-                <option value="sunstone" data-price="350">Сонячний камінь — 350 ₴</option>
-                <option value="malachite" data-price="290" selected>Малахіт — 290 ₴</option>
-              </select>
-              <p class="field__error" id="error-stone" role="alert" hidden></p>
-            </div>
-
-            <div class="field">
-              <label class="field__label" for="stone-qty">Кількість, шт. (1–20)</label>
-              <input class="field__control" id="stone-qty" name="qty" type="number" inputmode="numeric"
-                     min="1" max="20" step="1" value="1" required aria-describedby="error-qty qty-hint">
-              <p class="widget__hint" id="qty-hint">Від 5 шт. діє знижка 10%.</p>
-              <p class="field__error" id="error-qty" role="alert" hidden></p>
-            </div>
-
-            <div class="field">
-              <label class="field__label" for="stone-mount">Оформлення</label>
-              <select class="field__control" id="stone-mount" name="mount" aria-describedby="error-mount">
-                <option value="none" data-price="0" selected>Без оформлення — 0 ₴</option>
-                <option value="cord" data-price="60">На шнурку — +60 ₴ за шт.</option>
-                <option value="metal" data-price="120">У металевій оправі — +120 ₴ за шт.</option>
-              </select>
-              <p class="field__error" id="error-mount" role="alert" hidden></p>
-            </div>
-
-            <fieldset class="widget__options">
-              <legend class="field__label">Додатково</legend>
-              <label class="choice"><input type="checkbox" id="stone-gift" name="gift"><span>Подарункова упаковка — +50 ₴</span></label>
-              <label class="choice"><input type="checkbox" id="stone-delivery" name="delivery"><span>Доставка до відділення — +80 ₴</span></label>
-            </fieldset>
-
-          </div>
-
-          <div class="widget__result" aria-live="polite" aria-atomic="true">
-            <p class="widget__result-label">Орієнтовна вартість</p>
-            <p class="widget__total"><output id="stone-total" for="stone-type stone-qty stone-mount stone-gift stone-delivery">290 ₴</output></p>
-            <p class="widget__breakdown" id="stone-breakdown">1 × 290 ₴</p>
-            <p class="widget__note" id="stone-note" hidden></p>
-          </div>
-        </form>
-      </div>
-    </section>
-
     <!-- Демонстраційні відгуки -->
     <section class="section section--surface section--lg testimonials" aria-labelledby="testimonials-title">
       <div class="container">
@@ -590,6 +530,5 @@
   <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
   <script src="assets/js/plugins.js"></script>
-  <script src="assets/js/widget.js"></script>
 </body>
 </html>
