@@ -31,73 +31,73 @@
       id: 'acrylic-12', category: 'paints', popularity: 1, inStock: true, price: 420,
       title: 'Набір акрилових фарб, 12 кольорів',
       desc: '12 × 12 мл · для дерева, паперу й полотна',
-      img: 'assets/img/product-paints.png'
+      img: 'assets/img/product-paints.webp'
     },
     'brushes-5': {
       id: 'brushes-5', category: 'brushes', popularity: 2, inStock: true, price: 185,
       title: 'Пензлі для деталей, 5 шт.',
       desc: 'Тонкий синтетичний ворс · дерев’яні ручки',
-      img: 'assets/img/product-brushes.png'
+      img: 'assets/img/product-brushes.webp'
     },
     'moss-forest': {
       id: 'moss-forest', category: 'decor', popularity: 3, inStock: true, price: 145,
       title: 'Декор для діорам — лісовий мох',
       desc: 'Декоративна фактура для мініатюрних сцен',
-      img: 'assets/img/product-moss.png'
+      img: 'assets/img/product-moss.webp'
     },
     'beads-50': {
       id: 'beads-50', category: 'beads', popularity: 4, inStock: true, price: 85,
       title: 'Бісер скляний, 50 г',
       desc: 'Мікс природних відтінків · для прикрас',
-      img: 'assets/img/product-beads.png'
+      img: 'assets/img/product-beads.webp'
     },
     'tiger-eye': {
       id: 'tiger-eye', category: 'stones', popularity: 5, inStock: true, price: 220,
       title: 'Тигрове око',
       desc: 'Золотисто-коричневий кабошон із шовковим відблиском',
-      img: 'assets/img/product-tiger-eye.jpg'
+      img: 'assets/img/product-tiger-eye.webp'
     },
     'hawk-eye': {
       id: 'hawk-eye', category: 'stones', popularity: 6, inStock: true, price: 240,
       title: 'Соколине око',
       desc: 'Синьо-сірий відполірований камінь із відблиском',
-      img: 'assets/img/product-hawk-eye.jpg'
+      img: 'assets/img/product-hawk-eye.webp'
     },
     'bull-eye': {
       id: 'bull-eye', category: 'stones', popularity: 7, inStock: true, price: 260,
       title: 'Бичаче око',
       desc: 'Червоно-коричневий камінь зі смугами',
-      img: 'assets/img/product-bull-eye.jpg'
+      img: 'assets/img/product-bull-eye.webp'
     },
     'pietersite': {
       id: 'pietersite', category: 'stones', popularity: 8, inStock: true, price: 480,
       title: 'Петерсит',
       desc: 'Кабошон зі «штормовим» візерунком',
-      img: 'assets/img/product-pietersite.jpg'
+      img: 'assets/img/product-pietersite.webp'
     },
     'cats-eye': {
       id: 'cats-eye', category: 'stones', popularity: 9, inStock: true, price: 390,
       title: 'Котяче око',
       desc: 'Жовто-зелений кабошон зі світловою смугою',
-      img: 'assets/img/product-cats-eye.jpg'
+      img: 'assets/img/product-cats-eye.webp'
     },
     'labradorite': {
       id: 'labradorite', category: 'stones', popularity: 10, inStock: true, price: 320,
       title: 'Лабрадорит',
       desc: 'Кабошон із синім переливом (ірізація)',
-      img: 'assets/img/product-labradorite.jpg'
+      img: 'assets/img/product-labradorite.webp'
     },
     'sunstone': {
       id: 'sunstone', category: 'stones', popularity: 11, inStock: true, price: 350,
       title: 'Сонячний камінь',
       desc: 'Помаранчевий камінь із райдужними блискітками',
-      img: 'assets/img/product-sunstone.jpg'
+      img: 'assets/img/product-sunstone.webp'
     },
     'malachite': {
       id: 'malachite', category: 'stones', popularity: 12, inStock: true, price: 290,
       title: 'Малахіт',
       desc: 'Зелений камінь із концентричним візерунком',
-      img: 'assets/img/product-malachite.jpg'
+      img: 'assets/img/product-malachite.webp'
     }
   };
 

@@ -1,0 +1,82 @@
+name: CI/CD Production Deploy
+
+# Запускається при кожному push у main та вручну з вкладки Actions
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: production-deploy
+  cancel-in-progress: true
+
+jobs:
+  # 1) CI: перевірка якості перед розгортанням
+  check:
+    name: Перевірка коду
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Перевірка наявності обов'язкових файлів
+        run: |
+          for f in index.html catalog.html styles.css pages.css assets/js/site.js assets/js/plugins.js assets/js/widget.js robots.txt sitemap.xml; do
+            test -f "$f" || { echo "::error::Файл $f відсутній"; exit 1; }
+          done
+
+      - name: Перевірка синтаксису JavaScript
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: for f in assets/js/*.js; do node --check "$f" || exit 1; done
+
+      - name: Перевірка локальних посилань на зображення (src/href)
+        run: |
+          missing=0
+          for ref in $(grep -rhoE '(src|href)="assets/[^"]+"' *.html | sed -E 's/^(src|href)="//; s/"$//' | sort -u); do
+            test -f "$ref" || { echo "::error::Не знайдено $ref"; missing=1; }
+          done
+          exit $missing
+
+  # 2) CD: розгортання на Vercel (потрібні секрети репозиторію)
+  deploy:
+    name: Розгортання на Vercel
+    needs: check
+    runs-on: ubuntu-latest
+    env:
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Перевірка секретів
+        id: secrets
+        run: |
+          if [ -z "$VERCEL_TOKEN" ] || [ -z "$VERCEL_ORG_ID" ] || [ -z "$VERCEL_PROJECT_ID" ]; then
+            echo "::warning::Секрети VERCEL_TOKEN / VERCEL_ORG_ID / VERCEL_PROJECT_ID не задані — розгортання пропущено."
+            echo "run=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Install Vercel CLI
+        if: steps.secrets.outputs.run == 'true'
+        run: npm install --global vercel@latest
+
+      - name: Pull Vercel Environment Information
+        if: steps.secrets.outputs.run == 'true'
+        run: vercel pull --yes --environment=production --token="$VERCEL_TOKEN"
+
+      - name: Build Project Artifacts
+        if: steps.secrets.outputs.run == 'true'
+        run: vercel build --prod --token="$VERCEL_TOKEN"
+
+      - name: Deploy Project Artifacts to Vercel
+        if: steps.secrets.outputs.run == 'true'
+        run: vercel deploy --prebuilt --prod --token="$VERCEL_TOKEN"

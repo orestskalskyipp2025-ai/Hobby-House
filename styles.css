@@ -1627,3 +1627,28 @@ html { scroll-behavior: smooth; } @media (prefers-reduced-motion: reduce) { html
   .icon-button--mobile, .header-actions .action { min-width: 40px; width: 40px; }
 }
 .builder { margin-top: 48px; }
+
+/* ---------- Зручні цілі натискання (ЛР №12): не менше 48×48 px на сенсорних екранах ---------- */
+@media (max-width: 767px), (pointer: coarse) {
+  .brand { min-height: 48px; }
+  .product-card__link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+  }
+  /* Текстові посилання: візуально без змін, зона натискання збільшена відступами */
+  .breadcrumbs a,
+  .site-footer__list a,
+  .site-footer__address a,
+  .contact-card a {
+    display: inline-block;
+    padding-block: 14px;
+    margin-block: -14px;
+  }
+  .site-footer__list { gap: 0; }
+  .chip { min-height: 48px; }
+  .choice { min-height: 48px; align-items: center; }
+  .choice input[type="checkbox"],
+  .choice input[type="radio"] { width: 24px; height: 24px; }
+}
