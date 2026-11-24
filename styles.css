@@ -1652,3 +1652,15 @@ html { scroll-behavior: smooth; } @media (prefers-reduced-motion: reduce) { html
   .choice input[type="checkbox"],
   .choice input[type="radio"] { width: 24px; height: 24px; }
 }
+
+/* Повідомлення, якщо data.json не вдалося завантажити (ЛР самостійна) */
+.data-error {
+  margin: 16px auto;
+  max-width: 960px;
+  padding: 14px 18px;
+  background: var(--color-error-surface, #fdecea);
+  color: var(--color-error, #8a1c1c);
+  border: 1px solid currentColor;
+  border-radius: 8px;
+  font-size: 15px;
+}
