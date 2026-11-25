@@ -874,7 +874,14 @@
   }
 
   function applyTheme(theme, save) {
-    document.documentElement.setAttribute('data-theme', theme);
+    var root = document.documentElement;
+    /* Плавний перехід кольорів і свайп банера лише під час самого перемикання */
+    if (root.getAttribute('data-theme') !== theme) {
+      root.classList.add('theme-anim');
+      window.clearTimeout(applyTheme.timer);
+      applyTheme.timer = window.setTimeout(function () { root.classList.remove('theme-anim'); }, 1000);
+    }
+    root.setAttribute('data-theme', theme);
     if (save) {
       try { window.localStorage.setItem(THEME_KEY, theme); } catch (e) { /* без збереження */ }
     }
