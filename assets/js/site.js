@@ -26,80 +26,9 @@
     other: 'Інші матеріали'
   };
 
-  var PRODUCTS = {
-    'acrylic-12': {
-      id: 'acrylic-12', category: 'paints', popularity: 1, inStock: true, price: 420,
-      title: 'Набір акрилових фарб, 12 кольорів',
-      desc: '12 × 12 мл · для дерева, паперу й полотна',
-      img: 'assets/img/product-paints.png'
-    },
-    'brushes-5': {
-      id: 'brushes-5', category: 'brushes', popularity: 2, inStock: true, price: 185,
-      title: 'Пензлі для деталей, 5 шт.',
-      desc: 'Тонкий синтетичний ворс · дерев’яні ручки',
-      img: 'assets/img/product-brushes.png'
-    },
-    'moss-forest': {
-      id: 'moss-forest', category: 'decor', popularity: 3, inStock: true, price: 145,
-      title: 'Декор для діорам — лісовий мох',
-      desc: 'Декоративна фактура для мініатюрних сцен',
-      img: 'assets/img/product-moss.png'
-    },
-    'beads-50': {
-      id: 'beads-50', category: 'beads', popularity: 4, inStock: true, price: 85,
-      title: 'Бісер скляний, 50 г',
-      desc: 'Мікс природних відтінків · для прикрас',
-      img: 'assets/img/product-beads.png'
-    },
-    'tiger-eye': {
-      id: 'tiger-eye', category: 'stones', popularity: 5, inStock: true, price: 220,
-      title: 'Тигрове око',
-      desc: 'Золотисто-коричневий кабошон із шовковим відблиском',
-      img: 'assets/img/product-tiger-eye.jpg'
-    },
-    'hawk-eye': {
-      id: 'hawk-eye', category: 'stones', popularity: 6, inStock: true, price: 240,
-      title: 'Соколине око',
-      desc: 'Синьо-сірий відполірований камінь із відблиском',
-      img: 'assets/img/product-hawk-eye.jpg'
-    },
-    'bull-eye': {
-      id: 'bull-eye', category: 'stones', popularity: 7, inStock: true, price: 260,
-      title: 'Бичаче око',
-      desc: 'Червоно-коричневий камінь зі смугами',
-      img: 'assets/img/product-bull-eye.jpg'
-    },
-    'pietersite': {
-      id: 'pietersite', category: 'stones', popularity: 8, inStock: true, price: 480,
-      title: 'Петерсит',
-      desc: 'Кабошон зі «штормовим» візерунком',
-      img: 'assets/img/product-pietersite.jpg'
-    },
-    'cats-eye': {
-      id: 'cats-eye', category: 'stones', popularity: 9, inStock: true, price: 390,
-      title: 'Котяче око',
-      desc: 'Жовто-зелений кабошон зі світловою смугою',
-      img: 'assets/img/product-cats-eye.jpg'
-    },
-    'labradorite': {
-      id: 'labradorite', category: 'stones', popularity: 10, inStock: true, price: 320,
-      title: 'Лабрадорит',
-      desc: 'Кабошон із синім переливом (ірізація)',
-      img: 'assets/img/product-labradorite.jpg'
-    },
-    'sunstone': {
-      id: 'sunstone', category: 'stones', popularity: 11, inStock: true, price: 350,
-      title: 'Сонячний камінь',
-      desc: 'Помаранчевий камінь із райдужними блискітками',
-      img: 'assets/img/product-sunstone.jpg'
-    },
-    'malachite': {
-      id: 'malachite', category: 'stones', popularity: 12, inStock: true, price: 290,
-      title: 'Малахіт',
-      desc: 'Зелений камінь із концентричним візерунком',
-      img: 'assets/img/product-malachite.jpg'
-    }
-  };
+  /* Дані товарів завантажуються з data.json (fetch), див. loadData() */
+  var PRODUCTS = {};
+
 
   /* ---------- Допоміжні функції ---------- */
 
@@ -229,6 +158,8 @@
     $all('[data-cart-count]').forEach(function (el) {
       el.textContent = units > 99 ? '99+' : String(units);
       el.hidden = units === 0;
+      /* aria-hidden лише коли лічильник видно: кількість озвучує aria-label посилання */
+      if (units === 0) { el.removeAttribute('aria-hidden'); } else { el.setAttribute('aria-hidden', 'true'); }
     });
     $all('[data-cart-link]').forEach(function (el) {
       el.setAttribute('aria-label', units ? 'Кошик, товарів: ' + units : 'Кошик');
@@ -766,68 +697,8 @@
 
   /* ---------- 7. Сторінка товару та кнопка «Назад» ---------- */
 
-  var DETAILS = {
-    'acrylic-12': {
-      alt: 'Дерев’яна коробка з різнокольоровими баночками акрилових фарб',
-      lead: 'Дванадцять базових відтінків для малювання на дереві, папері й полотні. Добре змішуються між собою.',
-      specs: ['Обсяг: 12 × 12 мл', 'Основа: акрил, водорозчинний', 'Поверхні: дерево, папір, полотно', 'Упаковка: дерев’яна коробка']
-    },
-    'brushes-5': {
-      alt: 'П’ять тонких пензлів із дерев’яними ручками на аркуші паперу',
-      lead: 'Набір тонких пензлів для дрібних деталей: контури, очі, прожилки, написи.',
-      specs: ['У наборі: 5 пензлів', 'Ворс: синтетичний, тонкий', 'Ручка: дерево', 'Для акрилу, гуашу, акварелі']
-    },
-    'moss-forest': {
-      alt: 'Декоративний лісовий мох у паперовій коробці',
-      lead: 'Декоративна фактура для мініатюрних сцен, діорам і макетів.',
-      specs: ['Тип: декоративний мох', 'Призначення: діорами, макети, декор', 'Упаковка: паперова коробка']
-    },
-    'beads-50': {
-      alt: 'Скляний бісер природних відтінків у невеликих мисках',
-      lead: 'Мікс природних відтінків скляного бісеру для прикрас, вишивки й гердану.',
-      specs: ['Вага: 50 г', 'Матеріал: скло', 'Колір: мікс природних відтінків']
-    },
-    'tiger-eye': {
-      alt: 'Золотисто-коричневий овальний кабошон на білому тлі',
-      lead: 'Золотисто-коричневий овальний кабошон із характерною смугою-відблиском, що «перебігає» при повороті.',
-      specs: ['Камінь: тигрове око', 'Форма: овальний кабошон', 'Колір: золотисто-коричневий', 'Для прикрас, оправ і декору']
-    },
-    'hawk-eye': {
-      alt: 'Синьо-чорний відполірований камінь на світлій поверхні',
-      lead: 'Синьо-сірий відполірований камінь із шовковим відблиском. Спокійний холодний відтінок.',
-      specs: ['Камінь: соколине око', 'Форма: відполірована галька', 'Колір: синьо-сірий', 'Для прикрас і декору']
-    },
-    'bull-eye': {
-      alt: 'Червоно-коричневий смугастий відполірований камінь',
-      lead: 'Насичений червоно-коричневий камінь із темною смугою та шовковим блиском.',
-      specs: ['Камінь: бичаче око', 'Форма: плоска відполірована галька', 'Колір: червоно-коричневий', 'Для прикрас і колекції']
-    },
-    'pietersite': {
-      alt: 'Овальний кабошон із синіми, золотими й рудими прожилками',
-      lead: 'Рідкісний камінь із хаотичним візерунком із синіх, золотих і рудих прожилок.',
-      specs: ['Камінь: петерсит', 'Форма: овальний кабошон', 'Візерунок: синьо-золоті прожилки', 'Кожен камінь неповторний']
-    },
-    'cats-eye': {
-      alt: 'Жовто-зелений овальний кабошон зі світловою смугою на чорному тлі',
-      lead: 'Жовто-зелений кабошон, по центрі якого видно вузьку світлову смугу — «зіницю».',
-      specs: ['Камінь: котяче око', 'Форма: овальний кабошон', 'Колір: жовто-зелений', 'Для ювелірних оправ']
-    },
-    'labradorite': {
-      alt: 'Темний кабошон із яскраво-синім переливом',
-      lead: 'Темний камінь, що під певним кутом спалахує синім і блакитним переливом.',
-      specs: ['Камінь: лабрадорит', 'Форма: овальний кабошон', 'Ефект: синій перелив', 'Для прикрас і декору']
-    },
-    'sunstone': {
-      alt: 'Помаранчево-червоний камінь із райдужними блискітками на тканині',
-      lead: 'Теплий оранжево-червоний камінь із дрібними райдужними блискітками всередині.',
-      specs: ['Камінь: сонячний камінь', 'Форма: овал із гранню', 'Колір: оранжево-червоний', 'Для прикрас і колекції']
-    },
-    'malachite': {
-      alt: 'Зелений малахіт із концентричним візерунком',
-      lead: 'Насичено-зелений камінь із концентричними смугами та кільцями.',
-      specs: ['Камінь: малахіт', 'Форма: відполірована галька', 'Колір: зелений зі смугами', 'Для прикрас і декору']
-    }
-  };
+  var DETAILS = {};
+
 
   function initProduct() {
     var id = new URLSearchParams(window.location.search).get('id');
@@ -1036,6 +907,72 @@
     }
   }
 
+  /* ---------- Дані з data.json (fetch + async/await) ---------- */
+
+  function loadData() {
+    return fetch('data.json', { headers: { 'Accept': 'application/json' } })
+      .then(function (response) {
+        if (!response.ok) throw new Error('HTTP ' + response.status);
+        return response.json();
+      })
+      .then(function (data) {
+        if (!data || !Array.isArray(data.products)) throw new Error('Неправильний формат data.json');
+        data.products.forEach(function (p) {
+          if (!p || typeof p.id !== 'string' || typeof p.price !== 'number') return;
+          PRODUCTS[p.id] = p;
+          DETAILS[p.id] = { alt: p.alt, lead: p.lead, specs: p.specs || [] };
+        });
+        return data;
+      });
+  }
+
+  function showDataError() {
+    var main = $('main');
+    if (!main || $('.data-error')) return;
+    var box = document.createElement('p');
+    box.className = 'data-error';
+    box.setAttribute('role', 'alert');
+    box.textContent = 'Не вдалося завантажити дані товарів. Перевірте з’єднання з інтернетом і оновіть сторінку.';
+    main.insertBefore(box, main.firstChild);
+  }
+
+  function catalogCardHtml(p) {
+    var id = esc(p.id);
+    var title = esc(p.title);
+    return '<li data-product="' + id + '">' +
+      '<article class="product-card">' +
+        '<img class="product-card__photo" src="' + esc(p.img) + '" width="302" height="216" loading="lazy" alt="' + esc(p.alt) + '">' +
+        '<div class="product-card__body">' +
+          '<p class="product-card__meta">' + esc(CATEGORIES[p.category] || '') + ' · демотовар</p>' +
+          '<h3 class="product-card__title">' + title + '</h3>' +
+          '<p class="product-card__desc">' + esc(p.desc) + '</p>' +
+          '<div class="product-card__buy">' +
+            '<data class="product-card__price" value="' + p.price + '">' + money(p.price) + '</data>' +
+            '<span class="badge">' + (p.inStock ? 'У наявності · демо' : 'Немає в наявності') + '</span>' +
+          '</div>' +
+          '<button class="btn btn--primary btn--block" type="button" aria-label="Додати в кошик: ' + title + '" data-add-to-cart="' + id + '"' + (p.inStock ? '' : ' disabled') + '>Додати в кошик</button>' +
+          '<a class="product-card__link" href="product.html?id=' + id + '" aria-label="Переглянути товар: ' + title + '">Переглянути товар</a>' +
+        '</div>' +
+      '</article></li>';
+  }
+
+  function renderCatalogCards(data) {
+    var list = $('#product-list');
+    if (!list) return;
+    list.innerHTML = data.products.map(catalogCardHtml).join('');
+  }
+
+  /* Відгуки для слайдера (index.html): слайди будуються з data.json */
+  function renderReviews(data) {
+    var wrapper = $('.reviews-swiper .swiper-wrapper');
+    if (!wrapper || !Array.isArray(data.reviews) || !data.reviews.length) return;
+    wrapper.innerHTML = data.reviews.map(function (r) {
+      return '<div class="swiper-slide"><figure class="quote"><blockquote class="quote__text"><p>' +
+        esc(r.text) + '</p></blockquote><figcaption class="quote__caption">' + esc(r.caption) +
+        '</figcaption></figure></div>';
+    }).join('');
+  }
+
   /* ---------- Запуск ---------- */
 
   initTheme();
@@ -1043,15 +980,31 @@
   initSearchPanel();
   initAddToCart();
   initBack();
-  updateBadges();
 
   var page = document.body.getAttribute('data-page');
-  if (page === 'catalog') initCatalog();
-  if (page === 'account') initAccount();
-  if (page === 'product') initProduct();
-  if (page === 'cart') initCart();
-  if (page === 'checkout') initCheckout();
-  if (page === 'confirmation') initConfirmation();
+
+  /* Усе, що залежить від даних товарів, запускається після завантаження data.json */
+  var dataReady = loadData().then(function (data) {
+    renderReviews(data);
+    renderCatalogCards(data);
+    updateBadges();
+    if (page === 'catalog') initCatalog();
+    if (page === 'account') initAccount();
+    if (page === 'product') initProduct();
+    if (page === 'cart') initCart();
+    if (page === 'checkout') initCheckout();
+    if (page === 'confirmation') initConfirmation();
+    return data;
+  }).catch(function (error) {
+    window.console && console.warn('data.json:', error.message);
+    showDataError();
+    updateBadges();
+    if (page === 'account') initAccount();
+    return null;
+  });
+
+  /* Інші скрипти (plugins.js) чекають, поки слайди з data.json з’являться в DOM */
+  window.HHData = { ready: dataReady };
 
   /* Кошик змінили в іншій вкладці або повернулися кнопкою «Назад» */
   window.addEventListener('storage', function (event) {

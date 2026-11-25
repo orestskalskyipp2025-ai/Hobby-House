@@ -1125,3 +1125,8 @@ select.field__control,
   .auth__aside { padding: var(--space-48); }
 }
 .auth__link { align-self: flex-start; min-height: 44px; padding: 0; background: none; border: 0; color: var(--color-primary); font: 400 13px/1.2 var(--font-sans); text-decoration: underline; cursor: pointer; }
+
+/* Зручна ціль натискання для чипів фільтрів (ЛР №12) */
+@media (max-width: 767px), (pointer: coarse) {
+  .chips .chip { min-height: 48px; padding-inline: 14px; }
+}

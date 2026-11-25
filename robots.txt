@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /cart.html
+Disallow: /checkout.html
+Disallow: /confirmation.html
+Disallow: /account.html
+
+Sitemap: https://hobby-house-nu.vercel.app/sitemap.xml
