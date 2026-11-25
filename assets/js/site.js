@@ -158,6 +158,8 @@
     $all('[data-cart-count]').forEach(function (el) {
       el.textContent = units > 99 ? '99+' : String(units);
       el.hidden = units === 0;
+      /* aria-hidden лише коли лічильник видно: кількість озвучує aria-label посилання */
+      if (units === 0) { el.removeAttribute('aria-hidden'); } else { el.setAttribute('aria-hidden', 'true'); }
     });
     $all('[data-cart-link]').forEach(function (el) {
       el.setAttribute('aria-label', units ? 'Кошик, товарів: ' + units : 'Кошик');
